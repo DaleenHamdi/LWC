@@ -1,0 +1,53 @@
+<template>
+    <lightning-card>
+        <div class="slds-m-around_medium">
+            <h1 class="slds-text-heading_small">Student Search</h1>
+                </div>
+                    <div >
+                        <lightning-input
+                            name="student-search"
+                            label="Type Syudent Name for Search"
+                            type="search"
+                        ></lightning-input>
+                            <lightning-button 
+                                variant="Neutral" 
+                                label="Search" 
+                                title="Search for Student" 
+                                class="slds-m-left_x-small" 
+                                onclick={handleSearch}
+                            ></lightning-button>
+                            <template if:true={student}>
+                                    <p key={student.Id}>{student.Student_Name__c}</p>
+                                    <p key={student.Id}>{student.Level__c}</p>
+                                    <template for:each={teachers} for:item = "teacher">
+                                        <p key={teacher.Id}>{teacher.Teacher_Name__c}</p>
+                                        <p key={teacher.Id}>{teacher.Subjects__c}</p>
+                                    </template>
+                            </template>
+                        </div>
+                        
+                <template if:false={student}>
+                        <template if:true={students}>
+                            <lightning-card>
+                                    <lightning-datatable 
+                                        key-field="id"
+                                        data={students}
+                                        columns={columns}
+                                        onrowselection={handleRowSelection}>
+                                    </lightning-datatable>
+                                   <!--
+                                    <lightning-button 
+                                        variant="Brand" 
+                                        label="Submit" 
+                                        title="Search for Student" 
+                                        class="slds-m-left_x-small" 
+                                        onclick={handleChosenRow}
+                            ></lightning-button>
+                                -->
+                            </lightning-card>
+                    </template>
+                </template>
+
+                                <template if:true={students.error}>Nor</template>
+                        </lightning-card>
+</template>
